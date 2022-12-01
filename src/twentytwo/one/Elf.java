@@ -13,14 +13,6 @@ public class Elf {
         calories = new java.util.ArrayList<>();
     }
 
-    public void addCalories(Integer value) {
-        calories.add(value);
-    }
-
-    public int getTotal() {
-        return calories.stream().reduce(0, Integer::sum);
-    }
-
     public static List<Elf> getElvesFromFile(String path) {
         List<Elf> elves = new ArrayList<>();
 
@@ -43,5 +35,13 @@ public class Elf {
         }
 
         return elves;
+    }
+
+    public void addCalories(Integer value) {
+        calories.add(value);
+    }
+
+    public int getTotal() {
+        return calories.stream().reduce(0, Integer::sum);
     }
 }

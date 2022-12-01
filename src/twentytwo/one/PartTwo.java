@@ -1,6 +1,5 @@
 package twentytwo.one;
 
-import java.util.Comparator;
 import java.util.List;
 
 public class PartTwo {
