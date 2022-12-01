@@ -13,7 +13,7 @@ public class Elf {
         calories = new java.util.ArrayList<>();
     }
 
-    public static List<Elf> getElvesFromFile(String path) {
+    public static List<Elf> getFromShelf(String path) {
         List<Elf> elves = new ArrayList<>();
 
         try {
@@ -27,7 +27,7 @@ public class Elf {
                     elves.add(currentElf);
                     currentElf = new Elf();
                 } else {
-                    currentElf.addCalories(Integer.parseInt(line));
+                    currentElf.carry(Integer.parseInt(line));
                 }
             }
         } catch (IOException e) {
@@ -37,11 +37,11 @@ public class Elf {
         return elves;
     }
 
-    public void addCalories(Integer value) {
+    protected void carry(Integer value) {
         calories.add(value);
     }
 
-    public int getTotal() {
+    public int getCalories() {
         return calories.stream().reduce(0, Integer::sum);
     }
 }
