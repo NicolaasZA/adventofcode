@@ -1,6 +1,8 @@
 package twentytwo.two;
 
 import twentytwo.one.Elf;
+import twentytwo.two.enums.HandType;
+import twentytwo.two.enums.Outcome;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,66 +12,35 @@ import java.util.List;
 
 public class Round {
 
-    private String opponentPlay;
-    private String myPlay;
-
-    private final List<String> myPossibleValues = new ArrayList<>();
-
-    public static final String O_ROCK = "A";
-    public static final String O_PAPER = "B";
-    public static final String O_SCISSORS = "C";
-
-    public static final String M_ROCK = "X";
-    public static final String M_PAPER = "Y";
-    public static final String M_SCISSORS = "Z";
-
-    public static final String M_LOSS = "X";
-    public static final String M_DRAW = "Y";
-    public static final String M_WIN = "Z";
+    private Hand myHand;
+    private Hand opponentHand;
 
     public static final int SCORE_LOSS = 0;
     public static final int SCORE_DRAW = 3;
     public static final int SCORE_WIN = 6;
 
-    public Round(String opponentPlay, String myPlay) {
-        this.opponentPlay = opponentPlay;
-        this.myPlay = myPlay;
+    public Round(Hand opponentHand, Hand myHand) {
+        this.opponentHand = opponentHand;
+        this.myHand = myHand;
+    }
 
-        myPossibleValues.add(M_ROCK);
-        myPossibleValues.add(M_PAPER);
-        myPossibleValues.add(M_SCISSORS);
+    public Round(String opponent, String mine) {
+        this.opponentHand = Hand.fromInput(opponent);
+        this.myHand = Hand.fromInput(mine);
     }
 
     public int calculateScore() {
+        // Get score from hand played
+        int playScore = myHand.getType().ordinal() + 1;
+
+        // Get score from match outcome.
+        Outcome matchResult = myHand.getOutcome(opponentHand);
         int outcomeScore = SCORE_DRAW;
-
-        if (myPlay.equals(M_ROCK)) {
-
-            if (opponentPlay.equals(O_PAPER)) {
-                outcomeScore = SCORE_LOSS;
-            } else if (opponentPlay.equals(O_SCISSORS)) {
-                outcomeScore = SCORE_WIN;
-            }
-
-        } else if (myPlay.equals(M_PAPER)) {
-
-            if (opponentPlay.equals(O_SCISSORS)) {
-                outcomeScore = SCORE_LOSS;
-            } else if (opponentPlay.equals(O_ROCK)) {
-                outcomeScore = SCORE_WIN;
-            }
-
-        } else if (myPlay.equals(M_SCISSORS)) {
-
-            if (opponentPlay.equals(O_ROCK)) {
-                outcomeScore = SCORE_LOSS;
-            } else if (opponentPlay.equals(O_PAPER)) {
-                outcomeScore = SCORE_WIN;
-            }
-
+        if (matchResult == Outcome.WIN) {
+            outcomeScore = SCORE_WIN;
+        } else if (matchResult == Outcome.LOSS) {
+            outcomeScore = SCORE_LOSS;
         }
-
-        int playScore = myPossibleValues.indexOf(this.myPlay) + 1;
 
         return outcomeScore + playScore;
     }
@@ -86,6 +57,7 @@ public class Round {
                 String[] s = line.split(" ");
                 result.add(new Round(s[0], s[1]));
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -93,29 +65,9 @@ public class Round {
         return result;
     }
 
-    public String getOpponentPlay() {
-        return this.opponentPlay;
-    }
+    public Hand getMyHand() { return myHand; }
 
-    public void setOpponentPlay(String opponentPlay) {
-        this.opponentPlay = opponentPlay;
-    }
+    public void setMyHand(Hand newValue) { this.myHand = newValue; }
 
-    public String getMyPlay() {
-        return this.myPlay;
-    }
-
-    public void setMyPlay(String myPlay) {
-        this.myPlay = myPlay;
-    }
-
-    public String getMySame(String opponentPlay) {
-        if (opponentPlay.equals(O_ROCK)) {
-            return M_ROCK;
-        } else if (opponentPlay.equals(O_PAPER)) {
-            return M_PAPER;
-        }
-        return M_SCISSORS;
-    }
-
+    public Hand getOpponentHand() { return opponentHand; }
 }

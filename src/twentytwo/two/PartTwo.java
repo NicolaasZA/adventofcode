@@ -1,5 +1,8 @@
 package twentytwo.two;
 
+import twentytwo.two.enums.HandType;
+import twentytwo.two.enums.Outcome;
+
 import java.util.List;
 
 public class PartTwo {
@@ -8,33 +11,16 @@ public class PartTwo {
         List<Round> rounds = Round.getFromFile("src/twentytwo/two/input.txt");
 
         int score = 0;
-
         for( Round r : rounds ) {
-            if (r.getMyPlay().equals(Round.M_LOSS)) {
 
-                if (r.getOpponentPlay().equals(Round.O_ROCK)) {
-                    r.setMyPlay(Round.M_SCISSORS);
-                } else if (r.getOpponentPlay().equals(Round.O_PAPER)) {
-                    r.setMyPlay(Round.M_ROCK);
-                } else {
-                    r.setMyPlay(Round.M_PAPER);
-                }
+            Hand myCurrentHand = r.getMyHand();
+            Hand opponentHand = r.getOpponentHand();
 
-            } else if (r.getMyPlay().equals(Round.M_DRAW)) {
+            Outcome desiredOutcome = HandType.asOutcome(myCurrentHand.getType());
 
-                r.setMyPlay(r.getMySame(r.getOpponentPlay()));
+            Hand myNewHand = Hand.fromOutcome(desiredOutcome, opponentHand);
 
-            } else if (r.getMyPlay().equals(Round.M_WIN)) {
-
-                if (r.getOpponentPlay().equals(Round.O_ROCK)) {
-                    r.setMyPlay(Round.M_PAPER);
-                } else if (r.getOpponentPlay().equals(Round.O_PAPER)) {
-                    r.setMyPlay(Round.M_SCISSORS);
-                } else {
-                    r.setMyPlay(Round.M_ROCK);
-                }
-
-            }
+            r.setMyHand(myNewHand);
 
             score += r.calculateScore();
         }
