@@ -8,7 +8,7 @@ public class PartOne {
         List<Round> rounds = Round.getFromFile("src/twentytwo/two/input.txt");
 
         int score = 0;
-        for( Round r : rounds ) {
+        for (Round r : rounds) {
             score += r.calculateScore();
         }
 

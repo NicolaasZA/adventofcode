@@ -6,7 +6,8 @@ import twentytwo.two.Hand;
 import twentytwo.two.Round;
 import twentytwo.two.enums.HandType;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RoundTest {
 

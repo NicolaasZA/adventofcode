@@ -5,33 +5,22 @@ import twentytwo.two.enums.Outcome;
 
 public class Hand {
 
-    private HandType type;
+    private final HandType type;
 
     public Hand(HandType type) {
         this.type = type;
-    }
-
-    public HandType getType() {
-        return type;
     }
 
     /**
      * Convert a character representation of a hand to Hand.
      */
     public static Hand fromInput(String value) {
-        switch (value) {
-            case "A":
-            case "X":
-                return new Hand(HandType.ROCK);
-            case "B":
-            case "Y":
-                return new Hand(HandType.PAPER);
-            case "C":
-            case "Z":
-                return new Hand(HandType.SCISSORS);
-            default:
-                return null;
-        }
+        return switch (value) {
+            case "A", "X" -> new Hand(HandType.ROCK);
+            case "B", "Y" -> new Hand(HandType.PAPER);
+            case "C", "Z" -> new Hand(HandType.SCISSORS);
+            default -> null;
+        };
     }
 
     /**
@@ -45,7 +34,6 @@ public class Hand {
         }
         return new Hand(HandType.PAPER);
     }
-
 
     /**
      * When given an opponent's hand, returns the hand that will win against it.
@@ -69,6 +57,10 @@ public class Hand {
             return Hand.willWinAgainst(opponentHand);
         }
         return new Hand(opponentHand.getType());
+    }
+
+    public HandType getType() {
+        return type;
     }
 
     public Outcome getOutcome(Hand opponent) {
