@@ -100,7 +100,7 @@ function partOne() {
         score += b.sharedItem.priority;
     });
 
-    console.log(score); // 8240
+    console.log("part 1", score); // 8240
 }
 
 function partTwo() {
@@ -116,8 +116,8 @@ function partTwo() {
         score += b.sharedItem.priority;
     });
 
-    console.log(score); // 2587
+    console.log("part 2", score); // 2587
 }
 
-// partOne();
+partOne();
 partTwo();
