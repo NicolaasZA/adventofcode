@@ -1,6 +1,4 @@
-const fs = require("fs");
-
-class Item {
+export class Item {
     key;
     priority;
 
@@ -14,7 +12,7 @@ class Item {
     }
 }
 
-class Bag {
+export class Bag {
     compartmentA = []; // List[Item]
     compartmentB = []; // List[Item]
 
@@ -47,7 +45,7 @@ class Bag {
     }
 }
 
-class BagGroup {
+export class BagGroup {
     bagA; // Bag
     bagB; // Bag
     bagC; // Bag
@@ -81,43 +79,3 @@ class BagGroup {
         return shared;
     }
 }
-
-function bagsFromFile(p) {
-    const allFileContents = fs.readFileSync(p, { encoding: 'utf-8' }).split("\n");
-
-    result = [];
-    if (allFileContents && allFileContents.length) {
-        result = allFileContents.map((contents) => new Bag(contents));
-    }
-    return result;
-}
-
-function partOne() {
-    const bags = bagsFromFile('./input.txt');
-    
-    let score = 0;
-    bags.forEach((b) => {
-        score += b.sharedItem.priority;
-    });
-
-    console.log("part 1", score); // 8240
-}
-
-function partTwo() {
-    const bags = bagsFromFile('./input.txt');
-    
-    const groups = [];
-    for (let i = 0; i < bags.length; i += 3) {
-        groups.push(new BagGroup(bags[i], bags[i + 1], bags[i + 2]));
-    }
-    
-    let score = 0;
-    groups.forEach((b) => {
-        score += b.sharedItem.priority;
-    });
-
-    console.log("part 2", score); // 2587
-}
-
-partOne();
-partTwo();
