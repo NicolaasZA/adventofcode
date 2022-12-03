@@ -1,6 +1,5 @@
 package twentytwo.two;
 
-import twentytwo.two.enums.HandType;
 import twentytwo.two.enums.Outcome;
 
 import java.util.List;
@@ -16,7 +15,7 @@ public class PartTwo {
             Hand myCurrentHand = r.getMyHand();
             Hand opponentHand = r.getOpponentHand();
 
-            Outcome desiredOutcome = HandType.asOutcome(myCurrentHand.getType());
+            Outcome desiredOutcome = Outcome.convertFromHandType(myCurrentHand.getType());
 
             Hand myNewHand = Hand.fromOutcome(desiredOutcome, opponentHand);
 
