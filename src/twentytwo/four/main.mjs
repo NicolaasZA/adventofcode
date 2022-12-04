@@ -1,11 +1,6 @@
 import { readFileSync } from "fs";
 
 class Pair {
-    startOne = 0;
-    endOne = 0;
-    startTwo = 0;
-    endTwo = 0;
-
     constructor(line) {
         const pieces = line.split(',');
         const one = pieces[0].split('-');
@@ -65,10 +60,9 @@ function partOne() {
 function partTwo() {
     const pairs = pairsFromFile("./input.txt");
 
-    const hasOverlaps = pairs.map((p) => p.hasAnyOverlap()).filter((o) => o == true);
+    const hasOverlaps = pairs.map((p) => p.hasAnyOverlap()).filter((o) => o);
 
     console.log(hasOverlaps.length); // 903
-    
 }
 
 partOne();
