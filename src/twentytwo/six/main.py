@@ -2,11 +2,12 @@
 
 sequence = ''
 
+
 def readInput(pathToFile: str) -> str:
     result = ''
     with open(pathToFile) as fi:
         result = fi.readline()
-    return result        
+    return result
 
 
 def hasDuplicates(text: str) -> bool:
@@ -16,34 +17,28 @@ def hasDuplicates(text: str) -> bool:
     return False
 
 
-def partOne():
+def findUnique(txt: str, size: int) -> int:
     start = 0
-    end = 4
+    end = 0 + size
 
-    while end < len(sequence):
-        piece = sequence[start:end]
-        
+    while end < len(txt):
+        piece = txt[start:end]
+
         if hasDuplicates(piece) == False:
-            print('part one answer:', end) # 1140
-            return
+            return end
 
         start += 1
         end += 1
+
+    return -1
+
+
+def partOne():
+    print('part one answer:', findUnique(sequence, 4))  # 1140
 
 
 def partTwo():
-    start = 0
-    end = 14
-
-    while end < len(sequence):
-        piece = sequence[start:end]
-        
-        if hasDuplicates(piece) == False:
-            print('part two answer:', end) # 3495
-            return
-
-        start += 1
-        end += 1
+    print('part two answer:', findUnique(sequence, 14))  # 3495
 
 
 if __name__ == '__main__':
