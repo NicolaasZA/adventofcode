@@ -4,9 +4,10 @@ export class Vector {
 
     text = '';
 
-    constructor(x, y) {
+    constructor(x, y, text = '') {
         this.x = x;
         this.y = y;
+        this.text = text;
     }
 
     calcFromMove(moveText) {
@@ -51,8 +52,7 @@ export class Vector {
 export class Point extends Vector {
 
     constructor(x, y, text = '') {
-        super(x, y);
-        super.text = text;
+        super(x, y, text);
     }
 
     wasAt(point) {
@@ -65,35 +65,17 @@ export class Point extends Vector {
         this.y += vector.y;
         if (track) {
             const copy = new Point(this.x, this.y);
-            if (!this.wasAt(copy)) {
-                if (!this.history) {
-                    this.history = [copy];
-                } else {
-                    this.history.push(copy);
-                }
-            }
+            this.addHistory(copy);
         }
     }
 
-    moveUnitLength(vector, track = false) {
-        let unitVector = vector.asUnitVector();
-        vector.x -= unitVector.x;
-        vector.y -= unitVector.y;
-
-        this.x += unitVector.x;
-        this.y += unitVector.y;
-
-        const copy = new Point(this.x, this.y);
-        if (track) {
-            if (!this.wasAt(copy)) {
-                if (!this.history) {
-                    this.history = [copy];
-                } else {
-                    this.history.push(copy);
-                }
+    addHistory(p) {
+        if (!this.wasAt(p)) {
+            if (!this.history) {
+                this.history = [];
             }
+            this.history.push(p);
         }
-        return vector;
     }
 
     distanceTo(pointB) {
@@ -101,21 +83,21 @@ export class Point extends Vector {
         return Math.sqrt(Math.pow(pointB.x - this.x, 2) + Math.pow(pointB.y - this.y, 2))
     }
 
-    calculateMove(targetPoint) {
+    calculateMove(targetPoint, exact = false) {
         // Determine which direction to move in to go nearer to target point
-        if (this.distanceTo(targetPoint) > Math.sqrt(2)) {
+        if (this.distanceTo(targetPoint) > Math.sqrt(2) || exact) {
             // left/right
             if (targetPoint.y === this.y) {
-                return new Vector(targetPoint.x < this.x ? -1 : 1, 0);
+                return new Vector(targetPoint.x < this.x ? -1 : 1, 0, this.text + '');
             }
 
             // up/down
             if (targetPoint.x === this.x) {
-                return new Vector(0, targetPoint.y < this.y ? -1 : 1);
+                return new Vector(0, targetPoint.y < this.y ? -1 : 1, this.text + '');
             }
 
             // diagonal
-            return new Vector(targetPoint.x < this.x ? -1 : 1, targetPoint.y < this.y ? -1 : 1);
+            return new Vector(targetPoint.x < this.x ? -1 : 1, targetPoint.y < this.y ? -1 : 1, this.text + '');
         } else {
             return null;
         }
