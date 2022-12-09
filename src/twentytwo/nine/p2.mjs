@@ -79,4 +79,4 @@ moves.forEach((moveVector) => {
     head.moveTowards(target);
 });
 
-[tail, eight, seven, six, five, four, three, two, one, head].forEach((_) => console.log(_.point.text, _.point.history ? _.point.history.length + 1 : 1));
+[tail, eight, seven, six, five, four, three, two, one].forEach((_) => console.log(_.point.text, _.point.history ? _.point.history.length + 1 : 1));
