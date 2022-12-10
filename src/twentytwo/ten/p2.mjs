@@ -15,12 +15,12 @@ const instructions = readInstructions("./input.txt");
 const sequence = new Sequence(instructions);
 
 const crt = [
-    '########################################'.split(""),
-    '########################################'.split(""),
-    '########################################'.split(""),
-    '########################################'.split(""),
-    '########################################'.split(""),
-    '########################################'.split("")
+    '                                        '.split(""),
+    '                                        '.split(""),
+    '                                        '.split(""),
+    '                                        '.split(""),
+    '                                        '.split(""),
+    '                                        '.split("")
 ];
 
 for (let i = 0; i < 240; i ++) {
@@ -29,7 +29,7 @@ for (let i = 0; i < 240; i ++) {
     const col = index % 40;
 
     const spriteX = sequence.valueAt(i+1).start;
-    const pixel = [spriteX-1, spriteX, spriteX+1].includes(col) ? '#' : '.';
+    const pixel = [spriteX-1, spriteX, spriteX+1].includes(col) ? '#' : ' ';
 
     crt[row][col] = pixel;
 }
