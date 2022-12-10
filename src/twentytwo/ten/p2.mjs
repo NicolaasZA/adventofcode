@@ -23,15 +23,12 @@ const crt = [
     '                                        '.split("")
 ];
 
-for (let i = 0; i < 240; i ++) {
-    const index = i % 240;
-    const row = Math.floor(index / 40);
-    const col = index % 40;
+for (let i = 0; i < 240; i++) {
+    const row = Math.floor(i / 40);
+    const col = i % 40;
+    const spriteX = sequence.valueAt(i + 1).start;
 
-    const spriteX = sequence.valueAt(i+1).start;
-    const pixel = [spriteX-1, spriteX, spriteX+1].includes(col) ? '#' : ' ';
-
-    crt[row][col] = pixel;
+    crt[row][col] = [spriteX - 1, spriteX, spriteX + 1].includes(col) ? '#' : ' ';
 }
 
 for (const row of crt) {
