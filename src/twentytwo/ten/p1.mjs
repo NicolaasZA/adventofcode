@@ -4,11 +4,7 @@ import { readFileSync } from 'fs';
 
 function readInstructions(p) {
     const allFileContents = readFileSync(p, { encoding: 'utf-8' }).split("\n");
-    let result = [];
-    if (allFileContents && allFileContents.length) {
-        result = allFileContents.map((line) => line.replace("\n", ""));
-    }
-    return result;
+    return (allFileContents && allFileContents.length) ? allFileContents : [];
 }
 
 const instructions = readInstructions("./input.txt");
