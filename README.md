@@ -14,7 +14,7 @@ These are my solutions for Advent of Code 2022
 | Dec 8  | [Python](src/twentytwo/eight/)     |
 | Dec 9  | [JavaScript](src/twentytwo/nine/)  |
 | Dec 10 | [JavaScript](src/twentytwo/ten/)   |
-| Dec 11 | Java                               |
+| Dec 11 | [Java](src/twentytwo/eleven/)      |
 | Dec 12 | Java                               |
 | Dec 13 | Go                                 |
 | Dec 14 | Go                                 |
