@@ -3,7 +3,7 @@ Hi.
 These are my solutions for Advent of Code 2022
 
 | Date   | Solution                           |
-| ------ |------------------------------------|
+| ------ | ---------------------------------- |
 | Dec 1  | [Java](src/twentytwo/one/)         |
 | Dec 2  | [Java](src/twentytwo/two/)         |
 | Dec 3  | [JavaScript](src/twentytwo/three/) |
@@ -16,7 +16,7 @@ These are my solutions for Advent of Code 2022
 | Dec 10 | [JavaScript](src/twentytwo/ten/)   |
 | Dec 11 | [Java](src/twentytwo/eleven/)      |
 | Dec 12 | [Python](src/twentytwo/twelve/)    |
-| Dec 13 | TBD                                |
+| Dec 13 | [Python](src/twentytwo/thirteen/)  |
 | Dec 14 | TBD                                |
 | Dec 15 | TBD                                |
 | Dec 16 | TBD                                |
