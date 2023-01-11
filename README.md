@@ -29,12 +29,3 @@ These are my solutions for Advent of Code 2022
 | Dec 23 | TBD                                |
 | Dec 24 | TBD                                |
 | Dec 25 | TBD                                |
-
-Candidates considered for TBD:
-- [Elixir](https://elixir-lang.org/)
-- [Rust](https://www.rust-lang.org/)
-- [Scala](https://scala-lang.org/)
-- [F#](https://fsharp.org/)
-- Haskell
-- C#
-- Kotlin
