@@ -17,7 +17,7 @@ These are my solutions for Advent of Code 2022
 | Dec 11 | [Java](src/twentytwo/eleven/)      |
 | Dec 12 | [Python](src/twentytwo/twelve/)    |
 | Dec 13 | [Python](src/twentytwo/thirteen/)  |
-| Dec 14 | TBD                                |
+| Dec 14 | [Python](src/twentytwo//fourteen/) |
 | Dec 15 | TBD                                |
 | Dec 16 | TBD                                |
 | Dec 17 | TBD                                |
