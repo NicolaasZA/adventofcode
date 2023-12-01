@@ -10,8 +10,6 @@ def read(file_to_use):
 
 def convert_line(line: str) -> int:
     numbers_only = re.sub('[^0-9]+', '', line)
-    # if len(numbers_only) == 1:
-    #     return int(numbers_only[0] + numbers_only[0])
     return int(numbers_only[0] + numbers_only[-1])
 
 
