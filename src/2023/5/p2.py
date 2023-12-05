@@ -1,4 +1,4 @@
-from shared import read, build_almanac, transform_location_to_seed, Almanac, transform_seed_to_location
+from shared import read, build_almanac, transform_seed_to_location
 
 almanac = build_almanac(read('input.txt'), isPartOne=False)
 
