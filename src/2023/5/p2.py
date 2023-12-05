@@ -9,7 +9,7 @@ smallest = (99999999999, 0)
 # Approximate using steps
 for seed_range in almanac.seed_ranges:
     _perc = (seed_range[1]-seed_range[0]) / 100
-    print(f'looking at {seed_range} with percentage of {_perc} and step of {STEP}')
+    print(f'looking inside {seed_range}')
     for seed in range(seed_range[0], seed_range[1], STEP):
         location = transform_seed_to_location(seed, almanac)
         if location <= smallest[0]:
