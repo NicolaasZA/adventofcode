@@ -27,4 +27,4 @@ out/
 
 .pyc
 __pycache__/
-/target/
+target/
