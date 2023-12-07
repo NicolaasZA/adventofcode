@@ -91,11 +91,9 @@ class Hand:
         if 'J' not in self._cards:
             return self.get_strength()
 
-        # _joker_count = self._card_counts['J']
         del self._card_counts['J']
         self._cards = self._cards.replace('J', 'X')
 
-        # Ignore joker counter and look for sets that it would complete
         _card_variety_count = len(self._card_counts.keys())
         _card_count = sum(self._card_counts.values())
 
@@ -130,7 +128,7 @@ class Hand:
         return self.get_strength()
 
     def __repr__(self):
-        return f'Hand("{self._cards}", {len(self._card_counts.keys())}, bid={self.bid}, strength={self.strength})'
+        return f'Hand("{self._cards}", bid={self.bid}, strength={self.strength})'
 
 
 def file_to_lines(file_path: str) -> list[str]:
