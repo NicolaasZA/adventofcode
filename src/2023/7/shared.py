@@ -1,4 +1,4 @@
-POSSIBLE_CARDS = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
+POSSIBLE_CARDS = ['X', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
 
 
 class Hand:
@@ -10,11 +10,11 @@ class Hand:
 
     _cards: str
 
-    def __init__(self, hand: str):
+    def __init__(self, hand: str, isPartTwo=False):
+        self.bid = int(hand.split(' ')[1])
         self._cards = hand.split(' ')[0]
         self.map_counts(self._cards)
-        self.strength = self.get_strength()
-        self.bid = int(hand.split(' ')[1])
+        self.strength = self.get_strength() if not isPartTwo else self.get_strength_p2()
 
     def map_counts(self, hand: str):
         self._card_counts = {}
@@ -23,6 +23,9 @@ class Hand:
                 self._card_counts[_] += 1
             else:
                 self._card_counts[_] = 1
+
+    def remap_counts(self):
+        self.map_counts(self._cards)
 
     def get_highest_count(self) -> tuple[str, int]:
         _highest_val = max(self._card_counts.values())
@@ -66,6 +69,65 @@ class Hand:
 
         # high card
         return 0
+
+    def get_card_with_count(self, cnt: int):
+        first_key: str = ''
+        for _ in self._card_counts:
+            if first_key == '':
+                first_key = _
+            if self._card_counts[_] == cnt:
+                return _
+        return first_key
+
+    def get_highest_card(self):
+        highest_idx, highest_card = 0, self.get_card_with_count(99)
+        for _ in self._cards:
+            if POSSIBLE_CARDS.index(_) > highest_idx:
+                highest_idx = POSSIBLE_CARDS.index(_)
+                highest_card = _
+        return highest_card
+
+    def get_strength_p2(self):
+        if 'J' not in self._cards:
+            return self.get_strength()
+
+        # _joker_count = self._card_counts['J']
+        del self._card_counts['J']
+        self._cards = self._cards.replace('J', 'X')
+
+        # Ignore joker counter and look for sets that it would complete
+        _card_variety_count = len(self._card_counts.keys())
+        _card_count = sum(self._card_counts.values())
+
+        if _card_variety_count == 1 or _card_count == 0:
+            # AAAA or AAA or AA or A or nothing
+            return 6  # 5 of a kind
+
+        if _card_variety_count == 2:
+            if _card_count == 4:
+                if 3 in self._card_counts.values():
+                    # ABBB or AAAB
+                    return 5  # 4 of kind
+                else:
+                    # AABB
+                    return 4  # 3 of kind with pair
+            else:
+                # AAB or ABB or AB
+                return 5  # 4 of a kind
+
+        if _card_variety_count == 3:
+            if _card_count == 4:
+                # AABC or ABBC or ABCC
+                return 3  # 3 of a kind
+            else:
+                # ABC
+                return 3  # 3 of a kind
+
+        if _card_variety_count == 4:
+            # ABCD
+            return 1  # 1 pair
+
+        return self.get_strength()
 
     def __repr__(self):
         return f'Hand("{self._cards}", {len(self._card_counts.keys())}, bid={self.bid}, strength={self.strength})'
