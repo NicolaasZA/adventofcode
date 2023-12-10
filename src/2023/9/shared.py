@@ -11,14 +11,22 @@ class Reading:
         return f'Reading(history={self.history})'
 
     def predict_next(self) -> int:
-        # Extend linear bottom layer
+        """Predict forward."""
         self.layers[-1].append(self.layers[-1][-1])
-        # Start extending up from there
         for i in reversed(range(0, len(self.layers) - 1)):
             _layer = self.layers[i]
             _next_value = _layer[-1] + self.layers[i + 1][-1]
             _layer.append(_next_value)
         return self.layers[0][-1]
+
+    def predict_previous(self) -> int:
+        """Predict backward."""
+        self.layers[-1].insert(0, self.layers[-1][0])
+        for i in reversed(range(0, len(self.layers) - 1)):
+            _layer = self.layers[i]
+            _next_value = _layer[0] - self.layers[i + 1][0]
+            _layer.insert(0, _next_value)
+        return self.layers[0][0]
 
     def build_layers(self):
         _done = False
