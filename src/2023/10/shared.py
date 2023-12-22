@@ -1,5 +1,8 @@
+import math
 from copy import deepcopy
+
 import numpy as np
+import tcod.path as tpath
 
 DIRECTION_RIGHT = 0
 DIRECTION_UP = 1
@@ -164,11 +167,11 @@ def energize(beam: Beam, grid: list[list[str]], heatmap=True):
     return energy_grid, beam.distance
 
 
-def clean(grid, heatmap):
+def clean(grid, heatmap, replace_with='.'):
     for y in range(0, len(grid)):
         for x in range(0, len(grid[y])):
             if heatmap[y][x] == 0:
-                grid[y][x] = '.'
+                grid[y][x] = replace_with
 
 
 def find_start(grid):
@@ -230,6 +233,25 @@ def convert_to_cost_map(grid):
     _grid = deepcopy(grid)
     for y in range(0, len(_grid)):
         for x in range(0, len(_grid[y])):
-            _grid[y][x] = 0 if _grid[y][x] in PIPES else 1
+            if _grid[y][x] == '.':
+                _grid[y][x] = 2
+            else:
+                _grid[y][x] = -1 if _grid[y][x] in PIPES else 1
 
     return np.array(_grid, dtype=np.int8)
+
+
+def can_path_to(dest_x, dest_y, cost_map):
+    p = tpath.Dijkstra(cost_map, diagonal=0)
+    mx, my = len(cost_map[0]) - 1, len(cost_map) - 1
+    hx, hy = math.floor(mx / 2.0), math.floor(my / 2.0)
+    # Try to path to it from all 4 corners.
+    for from_x, from_y in [(0, 0), (mx, 0), (0, my), (mx, my), (0, hy), (mx, hy)]:
+        if from_x == dest_x and from_y == dest_y:
+            return True
+
+        p.set_goal(dest_x, dest_y)
+        route = p.get_path(from_x, from_y)
+        if len(route) > 0:
+            return True
+    return False
