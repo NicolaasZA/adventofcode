@@ -1,4 +1,5 @@
 from copy import deepcopy
+import numpy as np
 
 DIRECTION_RIGHT = 0
 DIRECTION_UP = 1
@@ -12,6 +13,17 @@ TILE_UP_RIGHT = 'L'
 TILE_UP_LEFT = 'J'
 TILE_DOWN_LEFT = '7'
 TILE_DOWN_RIGHT = 'F'
+TILE_FILLER = 'X'
+
+PIPES = [
+    TILE_UP_DOWN,
+    TILE_LEFT_RIGHT,
+    TILE_UP_RIGHT,
+    TILE_UP_LEFT,
+    TILE_DOWN_LEFT,
+    TILE_DOWN_RIGHT,
+    TILE_FILLER
+]
 
 
 class Beam:
@@ -152,12 +164,28 @@ def energize(beam: Beam, grid: list[list[str]], heatmap=True):
     return energy_grid, beam.distance
 
 
+def clean(grid, heatmap):
+    for y in range(0, len(grid)):
+        for x in range(0, len(grid[y])):
+            if heatmap[y][x] == 0:
+                grid[y][x] = '.'
+
+
 def find_start(grid):
     for y in range(0, len(grid)):
         for x in range(0, len(grid[y])):
             if grid[y][x] == 'S':
                 return x, y
     return 0, 0
+
+
+def find_dots(grid):
+    _dots = []
+    for y in range(0, len(grid)):
+        for x in range(0, len(grid[y])):
+            if grid[y][x] == '.':
+                _dots.append((x, y))
+    return _dots
 
 
 def get(grid, x, y, fallback=None):
@@ -196,3 +224,12 @@ def determine_start_beam(start: str, x, y):
     elif start in [TILE_DOWN_RIGHT, TILE_DOWN_LEFT]:
         return Beam(x, y, DIRECTION_DOWN)
     return Beam(x, y, DIRECTION_RIGHT)
+
+
+def convert_to_cost_map(grid):
+    _grid = deepcopy(grid)
+    for y in range(0, len(_grid)):
+        for x in range(0, len(_grid[y])):
+            _grid[y][x] = 0 if _grid[y][x] in PIPES else 1
+
+    return np.array(_grid, dtype=np.int8)
