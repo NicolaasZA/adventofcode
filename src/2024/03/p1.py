@@ -1,8 +1,10 @@
 import re
 
+
 def read_commands(filename: str) -> list[str]:
     with open(filename, 'r') as file:
         return file.readlines()
+
 
 total = 0
 commands = read_commands("data.txt")
