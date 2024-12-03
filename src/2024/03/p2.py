@@ -19,7 +19,7 @@ for instruction in instructions:
         enabled = False
     elif instruction.startswith("mul("):
         if enabled:
-            pieces = instruction.replace('mul(', '').replace(')', '').split(',')
-            total += int(pieces[0]) * int(pieces[1])
+            x,y = instruction.replace('mul(', '').replace(')', '').split(',')
+            total += int(x) * int(y)
 
 print(total)
